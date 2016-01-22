@@ -4,28 +4,21 @@
 using namespace std;
 
 bool isPrime(int num);
-const unsigned long long target = 600851475143;
-int factor = 0;
-vector<unsigned long>primes;
+unsigned long long target = 600851475143;
+int currentFactor = 2, highestFactor = 0;
 int main(){
-  primes.push_back(2);
-  for(unsigned long long i = 3; i < target; i+=2){
-    if(target % i == 0 && isPrime(target/i)){
-      if(factor < i){
-        factor = i;
-     }
-    }
-    cout << i << endl;
+  while(target != 1){
+    if(target % currentFactor == 0){
+      if(highestFactor < currentFactor){
+        highestFactor = currentFactor;
+      }
+      target /= currentFactor;
+        currentFactor = 2;
+      }
+      else{
+        ++currentFactor;
+      }
   }
-  cout << factor << endl;
-
-}
-bool isPrime(int num){
-  for(int j = 2; j < sqrt(num); ++j){
-    if(num % j == 0){
-      return false;
-    }
-  }
-  return true;
+  cout << highestFactor << endl;
 
 }
